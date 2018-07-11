@@ -1,0 +1,59 @@
+import sys
+
+
+def change(s):
+    raw = s.upper()
+
+    for c in raw:
+        if c not in ["0", "1", "2", "3", "4", "5", "6", "7", "8,", "9", ":", "A", "B", "C", "D", "E", "F"]:
+            print("Error")
+            return
+
+    parts = raw.split(":")
+    result = ''
+    len_parts = len(parts)
+    is_cons = 0
+    is_more_than_four = False
+
+    for i in range(len_parts):
+        if len(parts[i]) < 1 and i is not 0 and i is not len_parts - 1:
+            is_cons += 1
+            len_add = 8 - len_parts + 1
+            for j in range(len_add):
+                result += "0000:"
+            continue
+
+        if len(parts[i]) < 1 and (i is 0 or i is len_parts - 1):
+            result += "0000:"
+            continue
+
+        if len(parts[i]) < 4:
+            num_add_zero = 4 - len(parts[i])
+            for k in range(num_add_zero):
+                result += '0'
+            result += parts[i]
+            result += ":"
+            continue
+
+        if len(parts[i]) is 4:
+            result += parts[i]
+            result += ":"
+            continue
+
+        if len(parts[i]) > 4:
+            is_more_than_four = True
+            break
+
+    if result[-1] is ":":
+        result = result[:-1]
+    #
+    # if is_cons > 1 or is_more_than_four or len_parts > 8:
+    #     print("Error")
+    #     return
+
+    print(result)
+
+
+if __name__ == "__main__":
+    ipt = input()
+    change(ipt)
